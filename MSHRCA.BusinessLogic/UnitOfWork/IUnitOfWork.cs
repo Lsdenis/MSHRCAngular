@@ -1,11 +1,11 @@
 ﻿using System;
-using notimeReports.BusinessLogic.DataModel.Database;
+using MSHRCA.BusinessLogic.DataModel.Database;
 
 namespace notimeReports.BusinessLogic.UnitOfWork
 {
 	public interface IUnitOfWork : IDisposable
 	{
-		ONT_5Entities Context { get; }
+		MSHRCSchedulerContext Context { get; }
 		void Commit();
 	}
 }

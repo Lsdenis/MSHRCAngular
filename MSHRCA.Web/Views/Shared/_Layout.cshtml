@@ -4,9 +4,21 @@
 <head>
     <meta name="viewport" content="width=device-width" />
     <title>_Layout</title>
+    <link href="@Url.Content("~/Content/css/foundation.min.css")" type="text/css" rel="stylesheet" />
+    <link href="@Url.Content("~/Content/css/slicknav.min.css")" type="text/css" rel="stylesheet" />
+    <link href="@Url.Content("~/Content/css/Custom.css")" type="text/css" rel="stylesheet" />
+
+    <script type="text/javascript" src="@Url.Content("~/Scripts/jquery-2.1.4.min.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/foundation.min.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/angular.min.js")"></script>
+
+    <script type="text/javascript" src="@Url.Content("~/Scripts/jquery.slicknav.min.js")"></script>
 </head>
 <body>
-    <div> 
+    @Html.Partial("_Header")
+    <div class="row">
+        @RenderBody()
     </div>
+    @Html.Partial("_Footer")
 </body>
 </html>

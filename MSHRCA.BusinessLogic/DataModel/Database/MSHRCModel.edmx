@@ -1,0 +1,714 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="MSHRCSchedulerModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="AcademicDisciplines">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Code" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Description" Type="nvarchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Cabinets">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Code" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="GDCabinets">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="GDId" Type="int" Nullable="false" />
+          <Property Name="CabinetId" Type="int" Nullable="false" />
+          <Property Name="LessonId" Type="int" Nullable="false" />
+          <Property Name="SubstituteDGId" Type="int" />
+          <Property Name="Date" Type="date" Nullable="false" />
+          <Property Name="LessonTypeId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="GDTeachers">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="GroupDisciplineId" Type="int" Nullable="false" />
+          <Property Name="TeacherId" Type="int" Nullable="false" />
+          <Property Name="ActualHoursNumber" Type="int" Nullable="false" />
+          <Property Name="InitialHoursNumber" Type="int" Nullable="false" />
+          <Property Name="LessonTypeId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="GroupDisciplines">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="GroupId" Type="int" Nullable="false" />
+          <Property Name="DisciplineId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Groups">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Code" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="PeopleCount" Type="int" Nullable="false" />
+          <Property Name="CuratorId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Lessons">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="StartTime" Type="time" Precision="7" Nullable="false" />
+          <Property Name="EndTime" Type="time" Precision="7" Nullable="false" />
+        </EntityType>
+        <EntityType Name="LessonTypes">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Teachers">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FirstName" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="MiddleName" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="LastName" Type="nvarchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Password" Type="nvarchar(max)" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_GDCabinets_Cabinets">
+          <End Role="Cabinets" Type="Self.Cabinets" Multiplicity="1" />
+          <End Role="GDCabinets" Type="Self.GDCabinets" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cabinets">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="GDCabinets">
+              <PropertyRef Name="CabinetId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_GDCabinets_GroupDisciplines">
+          <End Role="GroupDisciplines" Type="Self.GroupDisciplines" Multiplicity="1" />
+          <End Role="GDCabinets" Type="Self.GDCabinets" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="GroupDisciplines">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="GDCabinets">
+              <PropertyRef Name="GDId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_GDCabinets_Lessons">
+          <End Role="Lessons" Type="Self.Lessons" Multiplicity="1" />
+          <End Role="GDCabinets" Type="Self.GDCabinets" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Lessons">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="GDCabinets">
+              <PropertyRef Name="LessonId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_GDCabinets_LessonTypes">
+          <End Role="LessonTypes" Type="Self.LessonTypes" Multiplicity="1" />
+          <End Role="GDCabinets" Type="Self.GDCabinets" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LessonTypes">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="GDCabinets">
+              <PropertyRef Name="LessonTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_GDCabinets_SubstituteGroupDisciplines">
+          <End Role="GroupDisciplines" Type="Self.GroupDisciplines" Multiplicity="0..1" />
+          <End Role="GDCabinets" Type="Self.GDCabinets" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="GroupDisciplines">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="GDCabinets">
+              <PropertyRef Name="SubstituteDGId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_GDTeachers_GroupDisciplines">
+          <End Role="GroupDisciplines" Type="Self.GroupDisciplines" Multiplicity="1" />
+          <End Role="GDTeachers" Type="Self.GDTeachers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="GroupDisciplines">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="GDTeachers">
+              <PropertyRef Name="GroupDisciplineId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_GDTeachers_LessonTypes">
+          <End Role="LessonTypes" Type="Self.LessonTypes" Multiplicity="1" />
+          <End Role="GDTeachers" Type="Self.GDTeachers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LessonTypes">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="GDTeachers">
+              <PropertyRef Name="LessonTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_GDTeachers_Teachers">
+          <End Role="Teachers" Type="Self.Teachers" Multiplicity="1" />
+          <End Role="GDTeachers" Type="Self.GDTeachers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Teachers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="GDTeachers">
+              <PropertyRef Name="TeacherId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_GroupDisciplines_AcademicDisciplines">
+          <End Role="AcademicDisciplines" Type="Self.AcademicDisciplines" Multiplicity="1" />
+          <End Role="GroupDisciplines" Type="Self.GroupDisciplines" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AcademicDisciplines">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="GroupDisciplines">
+              <PropertyRef Name="DisciplineId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_GroupDisciplines_Groups">
+          <End Role="Groups" Type="Self.Groups" Multiplicity="1" />
+          <End Role="GroupDisciplines" Type="Self.GroupDisciplines" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Groups">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="GroupDisciplines">
+              <PropertyRef Name="GroupId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Groups_Teachers">
+          <End Role="Teachers" Type="Self.Teachers" Multiplicity="1" />
+          <End Role="Groups" Type="Self.Groups" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Teachers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Groups">
+              <PropertyRef Name="CuratorId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="MSHRCSchedulerModelStoreContainer">
+          <EntitySet Name="AcademicDisciplines" EntityType="Self.AcademicDisciplines" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Cabinets" EntityType="Self.Cabinets" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="GDCabinets" EntityType="Self.GDCabinets" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="GDTeachers" EntityType="Self.GDTeachers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="GroupDisciplines" EntityType="Self.GroupDisciplines" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Groups" EntityType="Self.Groups" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Lessons" EntityType="Self.Lessons" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="LessonTypes" EntityType="Self.LessonTypes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Teachers" EntityType="Self.Teachers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_GDCabinets_Cabinets" Association="Self.FK_GDCabinets_Cabinets">
+            <End Role="Cabinets" EntitySet="Cabinets" />
+            <End Role="GDCabinets" EntitySet="GDCabinets" />
+          </AssociationSet>
+          <AssociationSet Name="FK_GDCabinets_GroupDisciplines" Association="Self.FK_GDCabinets_GroupDisciplines">
+            <End Role="GroupDisciplines" EntitySet="GroupDisciplines" />
+            <End Role="GDCabinets" EntitySet="GDCabinets" />
+          </AssociationSet>
+          <AssociationSet Name="FK_GDCabinets_Lessons" Association="Self.FK_GDCabinets_Lessons">
+            <End Role="Lessons" EntitySet="Lessons" />
+            <End Role="GDCabinets" EntitySet="GDCabinets" />
+          </AssociationSet>
+          <AssociationSet Name="FK_GDCabinets_LessonTypes" Association="Self.FK_GDCabinets_LessonTypes">
+            <End Role="LessonTypes" EntitySet="LessonTypes" />
+            <End Role="GDCabinets" EntitySet="GDCabinets" />
+          </AssociationSet>
+          <AssociationSet Name="FK_GDCabinets_SubstituteGroupDisciplines" Association="Self.FK_GDCabinets_SubstituteGroupDisciplines">
+            <End Role="GroupDisciplines" EntitySet="GroupDisciplines" />
+            <End Role="GDCabinets" EntitySet="GDCabinets" />
+          </AssociationSet>
+          <AssociationSet Name="FK_GDTeachers_GroupDisciplines" Association="Self.FK_GDTeachers_GroupDisciplines">
+            <End Role="GroupDisciplines" EntitySet="GroupDisciplines" />
+            <End Role="GDTeachers" EntitySet="GDTeachers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_GDTeachers_LessonTypes" Association="Self.FK_GDTeachers_LessonTypes">
+            <End Role="LessonTypes" EntitySet="LessonTypes" />
+            <End Role="GDTeachers" EntitySet="GDTeachers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_GDTeachers_Teachers" Association="Self.FK_GDTeachers_Teachers">
+            <End Role="Teachers" EntitySet="Teachers" />
+            <End Role="GDTeachers" EntitySet="GDTeachers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_GroupDisciplines_AcademicDisciplines" Association="Self.FK_GroupDisciplines_AcademicDisciplines">
+            <End Role="AcademicDisciplines" EntitySet="AcademicDisciplines" />
+            <End Role="GroupDisciplines" EntitySet="GroupDisciplines" />
+          </AssociationSet>
+          <AssociationSet Name="FK_GroupDisciplines_Groups" Association="Self.FK_GroupDisciplines_Groups">
+            <End Role="Groups" EntitySet="Groups" />
+            <End Role="GroupDisciplines" EntitySet="GroupDisciplines" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Groups_Teachers" Association="Self.FK_Groups_Teachers">
+            <End Role="Teachers" EntitySet="Teachers" />
+            <End Role="Groups" EntitySet="Groups" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="MSHRCSchedulerModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="AcademicDiscipline">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Code" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="GroupDisciplines" Relationship="Self.FK_GroupDisciplines_AcademicDisciplines" FromRole="AcademicDisciplines" ToRole="GroupDisciplines" />
+        </EntityType>
+        <EntityType Name="Cabinet">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Code" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="GDCabinets" Relationship="Self.FK_GDCabinets_Cabinets" FromRole="Cabinets" ToRole="GDCabinets" />
+        </EntityType>
+        <EntityType Name="GDCabinet">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="GDId" Type="Int32" Nullable="false" />
+          <Property Name="CabinetId" Type="Int32" Nullable="false" />
+          <Property Name="LessonId" Type="Int32" Nullable="false" />
+          <Property Name="SubstituteDGId" Type="Int32" />
+          <Property Name="Date" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="LessonTypeId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Cabinet" Relationship="Self.FK_GDCabinets_Cabinets" FromRole="GDCabinets" ToRole="Cabinets" />
+          <NavigationProperty Name="GroupDiscipline" Relationship="Self.FK_GDCabinets_GroupDisciplines" FromRole="GDCabinets" ToRole="GroupDisciplines" />
+          <NavigationProperty Name="Lesson" Relationship="Self.FK_GDCabinets_Lessons" FromRole="GDCabinets" ToRole="Lessons" />
+          <NavigationProperty Name="LessonType" Relationship="Self.FK_GDCabinets_LessonTypes" FromRole="GDCabinets" ToRole="LessonTypes" />
+          <NavigationProperty Name="GroupDiscipline1" Relationship="Self.FK_GDCabinets_SubstituteGroupDisciplines" FromRole="GDCabinets" ToRole="GroupDisciplines" />
+        </EntityType>
+        <EntityType Name="GDTeacher">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="GroupDisciplineId" Type="Int32" Nullable="false" />
+          <Property Name="TeacherId" Type="Int32" Nullable="false" />
+          <Property Name="ActualHoursNumber" Type="Int32" Nullable="false" />
+          <Property Name="InitialHoursNumber" Type="Int32" Nullable="false" />
+          <Property Name="LessonTypeId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="GroupDiscipline" Relationship="Self.FK_GDTeachers_GroupDisciplines" FromRole="GDTeachers" ToRole="GroupDisciplines" />
+          <NavigationProperty Name="LessonType" Relationship="Self.FK_GDTeachers_LessonTypes" FromRole="GDTeachers" ToRole="LessonTypes" />
+          <NavigationProperty Name="Teacher" Relationship="Self.FK_GDTeachers_Teachers" FromRole="GDTeachers" ToRole="Teachers" />
+        </EntityType>
+        <EntityType Name="GroupDiscipline">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="GroupId" Type="Int32" Nullable="false" />
+          <Property Name="DisciplineId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="AcademicDiscipline" Relationship="Self.FK_GroupDisciplines_AcademicDisciplines" FromRole="GroupDisciplines" ToRole="AcademicDisciplines" />
+          <NavigationProperty Name="GDCabinets" Relationship="Self.FK_GDCabinets_GroupDisciplines" FromRole="GroupDisciplines" ToRole="GDCabinets" />
+          <NavigationProperty Name="GDCabinets1" Relationship="Self.FK_GDCabinets_SubstituteGroupDisciplines" FromRole="GroupDisciplines" ToRole="GDCabinets" />
+          <NavigationProperty Name="GDTeachers" Relationship="Self.FK_GDTeachers_GroupDisciplines" FromRole="GroupDisciplines" ToRole="GDTeachers" />
+          <NavigationProperty Name="Group" Relationship="Self.FK_GroupDisciplines_Groups" FromRole="GroupDisciplines" ToRole="Groups" />
+        </EntityType>
+        <EntityType Name="Group">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Code" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="PeopleCount" Type="Int32" Nullable="false" />
+          <Property Name="CuratorId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="GroupDisciplines" Relationship="Self.FK_GroupDisciplines_Groups" FromRole="Groups" ToRole="GroupDisciplines" />
+          <NavigationProperty Name="Teacher" Relationship="Self.FK_Groups_Teachers" FromRole="Groups" ToRole="Teachers" />
+        </EntityType>
+        <EntityType Name="Lesson">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="StartTime" Type="Time" Nullable="false" Precision="7" />
+          <Property Name="EndTime" Type="Time" Nullable="false" Precision="7" />
+          <NavigationProperty Name="GDCabinets" Relationship="Self.FK_GDCabinets_Lessons" FromRole="Lessons" ToRole="GDCabinets" />
+        </EntityType>
+        <EntityType Name="LessonType">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="GDCabinets" Relationship="Self.FK_GDCabinets_LessonTypes" FromRole="LessonTypes" ToRole="GDCabinets" />
+          <NavigationProperty Name="GDTeachers" Relationship="Self.FK_GDTeachers_LessonTypes" FromRole="LessonTypes" ToRole="GDTeachers" />
+        </EntityType>
+        <EntityType Name="Teacher">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FirstName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="MiddleName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="LastName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="GDTeachers" Relationship="Self.FK_GDTeachers_Teachers" FromRole="Teachers" ToRole="GDTeachers" />
+          <NavigationProperty Name="Groups" Relationship="Self.FK_Groups_Teachers" FromRole="Teachers" ToRole="Groups" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Password" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_GroupDisciplines_AcademicDisciplines">
+          <End Role="AcademicDisciplines" Type="Self.AcademicDiscipline" Multiplicity="1" />
+          <End Role="GroupDisciplines" Type="Self.GroupDiscipline" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AcademicDisciplines">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="GroupDisciplines">
+              <PropertyRef Name="DisciplineId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_GDCabinets_Cabinets">
+          <End Role="Cabinets" Type="Self.Cabinet" Multiplicity="1" />
+          <End Role="GDCabinets" Type="Self.GDCabinet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cabinets">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="GDCabinets">
+              <PropertyRef Name="CabinetId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_GDCabinets_GroupDisciplines">
+          <End Role="GroupDisciplines" Type="Self.GroupDiscipline" Multiplicity="1" />
+          <End Role="GDCabinets" Type="Self.GDCabinet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="GroupDisciplines">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="GDCabinets">
+              <PropertyRef Name="GDId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_GDCabinets_Lessons">
+          <End Role="Lessons" Type="Self.Lesson" Multiplicity="1" />
+          <End Role="GDCabinets" Type="Self.GDCabinet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Lessons">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="GDCabinets">
+              <PropertyRef Name="LessonId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_GDCabinets_LessonTypes">
+          <End Role="LessonTypes" Type="Self.LessonType" Multiplicity="1" />
+          <End Role="GDCabinets" Type="Self.GDCabinet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LessonTypes">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="GDCabinets">
+              <PropertyRef Name="LessonTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_GDCabinets_SubstituteGroupDisciplines">
+          <End Role="GroupDisciplines" Type="Self.GroupDiscipline" Multiplicity="0..1" />
+          <End Role="GDCabinets" Type="Self.GDCabinet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="GroupDisciplines">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="GDCabinets">
+              <PropertyRef Name="SubstituteDGId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_GDTeachers_GroupDisciplines">
+          <End Role="GroupDisciplines" Type="Self.GroupDiscipline" Multiplicity="1" />
+          <End Role="GDTeachers" Type="Self.GDTeacher" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="GroupDisciplines">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="GDTeachers">
+              <PropertyRef Name="GroupDisciplineId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_GDTeachers_LessonTypes">
+          <End Role="LessonTypes" Type="Self.LessonType" Multiplicity="1" />
+          <End Role="GDTeachers" Type="Self.GDTeacher" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LessonTypes">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="GDTeachers">
+              <PropertyRef Name="LessonTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_GDTeachers_Teachers">
+          <End Role="Teachers" Type="Self.Teacher" Multiplicity="1" />
+          <End Role="GDTeachers" Type="Self.GDTeacher" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Teachers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="GDTeachers">
+              <PropertyRef Name="TeacherId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_GroupDisciplines_Groups">
+          <End Role="Groups" Type="Self.Group" Multiplicity="1" />
+          <End Role="GroupDisciplines" Type="Self.GroupDiscipline" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Groups">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="GroupDisciplines">
+              <PropertyRef Name="GroupId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Groups_Teachers">
+          <End Role="Teachers" Type="Self.Teacher" Multiplicity="1" />
+          <End Role="Groups" Type="Self.Group" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Teachers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Groups">
+              <PropertyRef Name="CuratorId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="MSHRCSchedulerContext" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="AcademicDisciplines" EntityType="Self.AcademicDiscipline" />
+          <EntitySet Name="Cabinets" EntityType="Self.Cabinet" />
+          <EntitySet Name="GDCabinets" EntityType="Self.GDCabinet" />
+          <EntitySet Name="GDTeachers" EntityType="Self.GDTeacher" />
+          <EntitySet Name="GroupDisciplines" EntityType="Self.GroupDiscipline" />
+          <EntitySet Name="Groups" EntityType="Self.Group" />
+          <EntitySet Name="Lessons" EntityType="Self.Lesson" />
+          <EntitySet Name="LessonTypes" EntityType="Self.LessonType" />
+          <EntitySet Name="Teachers" EntityType="Self.Teacher" />
+          <EntitySet Name="Users" EntityType="Self.User" />
+          <AssociationSet Name="FK_GroupDisciplines_AcademicDisciplines" Association="Self.FK_GroupDisciplines_AcademicDisciplines">
+            <End Role="AcademicDisciplines" EntitySet="AcademicDisciplines" />
+            <End Role="GroupDisciplines" EntitySet="GroupDisciplines" />
+          </AssociationSet>
+          <AssociationSet Name="FK_GDCabinets_Cabinets" Association="Self.FK_GDCabinets_Cabinets">
+            <End Role="Cabinets" EntitySet="Cabinets" />
+            <End Role="GDCabinets" EntitySet="GDCabinets" />
+          </AssociationSet>
+          <AssociationSet Name="FK_GDCabinets_GroupDisciplines" Association="Self.FK_GDCabinets_GroupDisciplines">
+            <End Role="GroupDisciplines" EntitySet="GroupDisciplines" />
+            <End Role="GDCabinets" EntitySet="GDCabinets" />
+          </AssociationSet>
+          <AssociationSet Name="FK_GDCabinets_Lessons" Association="Self.FK_GDCabinets_Lessons">
+            <End Role="Lessons" EntitySet="Lessons" />
+            <End Role="GDCabinets" EntitySet="GDCabinets" />
+          </AssociationSet>
+          <AssociationSet Name="FK_GDCabinets_LessonTypes" Association="Self.FK_GDCabinets_LessonTypes">
+            <End Role="LessonTypes" EntitySet="LessonTypes" />
+            <End Role="GDCabinets" EntitySet="GDCabinets" />
+          </AssociationSet>
+          <AssociationSet Name="FK_GDCabinets_SubstituteGroupDisciplines" Association="Self.FK_GDCabinets_SubstituteGroupDisciplines">
+            <End Role="GroupDisciplines" EntitySet="GroupDisciplines" />
+            <End Role="GDCabinets" EntitySet="GDCabinets" />
+          </AssociationSet>
+          <AssociationSet Name="FK_GDTeachers_GroupDisciplines" Association="Self.FK_GDTeachers_GroupDisciplines">
+            <End Role="GroupDisciplines" EntitySet="GroupDisciplines" />
+            <End Role="GDTeachers" EntitySet="GDTeachers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_GDTeachers_LessonTypes" Association="Self.FK_GDTeachers_LessonTypes">
+            <End Role="LessonTypes" EntitySet="LessonTypes" />
+            <End Role="GDTeachers" EntitySet="GDTeachers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_GDTeachers_Teachers" Association="Self.FK_GDTeachers_Teachers">
+            <End Role="Teachers" EntitySet="Teachers" />
+            <End Role="GDTeachers" EntitySet="GDTeachers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_GroupDisciplines_Groups" Association="Self.FK_GroupDisciplines_Groups">
+            <End Role="Groups" EntitySet="Groups" />
+            <End Role="GroupDisciplines" EntitySet="GroupDisciplines" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Groups_Teachers" Association="Self.FK_Groups_Teachers">
+            <End Role="Teachers" EntitySet="Teachers" />
+            <End Role="Groups" EntitySet="Groups" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="MSHRCSchedulerModelStoreContainer" CdmEntityContainer="MSHRCSchedulerContext">
+          <EntitySetMapping Name="AcademicDisciplines">
+            <EntityTypeMapping TypeName="MSHRCSchedulerModel.AcademicDiscipline">
+              <MappingFragment StoreEntitySet="AcademicDisciplines">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Cabinets">
+            <EntityTypeMapping TypeName="MSHRCSchedulerModel.Cabinet">
+              <MappingFragment StoreEntitySet="Cabinets">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="GDCabinets">
+            <EntityTypeMapping TypeName="MSHRCSchedulerModel.GDCabinet">
+              <MappingFragment StoreEntitySet="GDCabinets">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="GDId" ColumnName="GDId" />
+                <ScalarProperty Name="CabinetId" ColumnName="CabinetId" />
+                <ScalarProperty Name="LessonId" ColumnName="LessonId" />
+                <ScalarProperty Name="SubstituteDGId" ColumnName="SubstituteDGId" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="LessonTypeId" ColumnName="LessonTypeId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="GDTeachers">
+            <EntityTypeMapping TypeName="MSHRCSchedulerModel.GDTeacher">
+              <MappingFragment StoreEntitySet="GDTeachers">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="GroupDisciplineId" ColumnName="GroupDisciplineId" />
+                <ScalarProperty Name="TeacherId" ColumnName="TeacherId" />
+                <ScalarProperty Name="ActualHoursNumber" ColumnName="ActualHoursNumber" />
+                <ScalarProperty Name="InitialHoursNumber" ColumnName="InitialHoursNumber" />
+                <ScalarProperty Name="LessonTypeId" ColumnName="LessonTypeId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="GroupDisciplines">
+            <EntityTypeMapping TypeName="MSHRCSchedulerModel.GroupDiscipline">
+              <MappingFragment StoreEntitySet="GroupDisciplines">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="GroupId" ColumnName="GroupId" />
+                <ScalarProperty Name="DisciplineId" ColumnName="DisciplineId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Groups">
+            <EntityTypeMapping TypeName="MSHRCSchedulerModel.Group">
+              <MappingFragment StoreEntitySet="Groups">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
+                <ScalarProperty Name="PeopleCount" ColumnName="PeopleCount" />
+                <ScalarProperty Name="CuratorId" ColumnName="CuratorId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Lessons">
+            <EntityTypeMapping TypeName="MSHRCSchedulerModel.Lesson">
+              <MappingFragment StoreEntitySet="Lessons">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="StartTime" ColumnName="StartTime" />
+                <ScalarProperty Name="EndTime" ColumnName="EndTime" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LessonTypes">
+            <EntityTypeMapping TypeName="MSHRCSchedulerModel.LessonType">
+              <MappingFragment StoreEntitySet="LessonTypes">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Teachers">
+            <EntityTypeMapping TypeName="MSHRCSchedulerModel.Teacher">
+              <MappingFragment StoreEntitySet="Teachers">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="MiddleName" ColumnName="MiddleName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="MSHRCSchedulerModel.User">
+              <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

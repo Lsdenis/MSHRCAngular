@@ -1,18 +1,18 @@
-﻿using notimeReports.BusinessLogic.DataModel.Database;
-using notimeReports.BusinessLogic.Interfaces;
+﻿using MSHRCA.BusinessLogic.DataModel.Database;
+using MSHRCA.BusinessLogic.Interfaces;
 
 namespace notimeReports.BusinessLogic.UnitOfWork
 {
-	public class UnitOfWork : IUnitOfWork, IDependency
+	public class UnitOfWork : IUnitOfWork, ISelfInject
 	{
-		private readonly ONT_5Entities _context;
+		private readonly MSHRCSchedulerContext _context;
 
-		public UnitOfWork(ONT_5Entities context)
+		public UnitOfWork(MSHRCSchedulerContext context)
 		{
 			_context = context;
 		}
 
-		public ONT_5Entities Context
+		public MSHRCSchedulerContext Context
 		{
 			get { return _context; }
 		}

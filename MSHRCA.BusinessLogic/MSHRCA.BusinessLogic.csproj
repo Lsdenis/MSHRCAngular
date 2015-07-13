@@ -30,8 +30,17 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework">
+      <HintPath>..\packages\EntityFramework.6.1.1\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer">
+      <HintPath>..\packages\EntityFramework.6.1.1\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -39,6 +48,51 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DataModel\Database\AcademicDiscipline.cs">
+      <DependentUpon>MSHRCModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModel\Database\Cabinet.cs">
+      <DependentUpon>MSHRCModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModel\Database\GDCabinet.cs">
+      <DependentUpon>MSHRCModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModel\Database\GDTeacher.cs">
+      <DependentUpon>MSHRCModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModel\Database\Group.cs">
+      <DependentUpon>MSHRCModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModel\Database\GroupDiscipline.cs">
+      <DependentUpon>MSHRCModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModel\Database\Lesson.cs">
+      <DependentUpon>MSHRCModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModel\Database\LessonType.cs">
+      <DependentUpon>MSHRCModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModel\Database\MSHRCModel.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>MSHRCModel.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModel\Database\MSHRCModel.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>MSHRCModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModel\Database\MSHRCModel.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>MSHRCModel.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="DataModel\Database\Teacher.cs">
+      <DependentUpon>MSHRCModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModel\Database\User.cs">
+      <DependentUpon>MSHRCModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Interfaces\ISelfInject.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository\BaseRepository.cs" />
@@ -47,8 +101,31 @@
     <Compile Include="UnitOfWork\UnitOfWork.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="DataModel\" />
     <Folder Include="Services\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <EntityDeploy Include="DataModel\Database\MSHRCModel.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>MSHRCModel.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="DataModel\Database\MSHRCModel.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>MSHRCModel.edmx</DependentUpon>
+      <LastGenOutput>MSHRCModel.Context.cs</LastGenOutput>
+    </None>
+    <None Include="DataModel\Database\MSHRCModel.edmx.diagram">
+      <DependentUpon>MSHRCModel.edmx</DependentUpon>
+    </None>
+    <None Include="DataModel\Database\MSHRCModel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>MSHRCModel.edmx</DependentUpon>
+      <LastGenOutput>MSHRCModel.cs</LastGenOutput>
+    </None>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
