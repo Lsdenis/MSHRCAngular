@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Linq.Expressions;
-using notimeReports.BusinessLogic.UnitOfWork;
+using MSHRCA.BusinessLogic.UnitOfWork;
 
-namespace notimeReports.BusinessLogic.Repository
+namespace MSHRCA.BusinessLogic.Repository
 {
 	public class BaseRepository<T> : IRepository<T>
 		where T : class

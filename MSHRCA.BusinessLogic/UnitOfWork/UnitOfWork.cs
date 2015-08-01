@@ -1,9 +1,8 @@
-﻿using MSHRCA.BusinessLogic.DataModel.Database;
-using MSHRCA.BusinessLogic.Interfaces;
+﻿using MSHRCA.BusinessLogic.DataModel;
 
-namespace notimeReports.BusinessLogic.UnitOfWork
+namespace MSHRCA.BusinessLogic.UnitOfWork
 {
-	public class UnitOfWork : IUnitOfWork, ISelfInject
+	public class UnitOfWork : IUnitOfWork
 	{
 		private readonly MSHRCSchedulerContext _context;
 

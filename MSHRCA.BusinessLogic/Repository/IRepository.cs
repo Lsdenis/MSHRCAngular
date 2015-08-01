@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 
-namespace notimeReports.BusinessLogic.Repository
+namespace MSHRCA.BusinessLogic.Repository
 {
 	public interface IRepository<T>
 	{

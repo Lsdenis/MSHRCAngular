@@ -1,7 +1,7 @@
 ﻿using System;
-using MSHRCA.BusinessLogic.DataModel.Database;
+using MSHRCA.BusinessLogic.DataModel;
 
-namespace notimeReports.BusinessLogic.UnitOfWork
+namespace MSHRCA.BusinessLogic.UnitOfWork
 {
 	public interface IUnitOfWork : IDisposable
 	{
