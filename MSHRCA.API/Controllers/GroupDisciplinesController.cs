@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
@@ -15,11 +16,11 @@ namespace MSHRCA.API.Controllers
 			_groupDisciplineService = groupDisciplineService;
 		}
 
-		[Route("api/groupdisciplines/getall")]
+		[Route("api/groupdisciplines/all")]
 		public HttpResponseMessage GetGroupDisciplines()
 		{
 			var groupDisciplines = _groupDisciplineService.GetAllGroupDisciplines();
-			var response = CreateResponse(groupDisciplines, HttpStatusCode.OK);
+			var response = CreateResponse(groupDisciplines.Select(d => d.Group.Code).ToList(), HttpStatusCode.OK);
 			return response;
 		}
 	}

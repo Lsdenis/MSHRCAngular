@@ -2,7 +2,7 @@
 
 namespace MSHRCA.BusinessLogic.DataModel
 {
-	public partial class MSHRCSchedulerContext : ISelfDependency
+	public partial class MSHRCSchedulerContext
 	{
 
 	}

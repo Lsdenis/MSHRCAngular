@@ -3,6 +3,9 @@ using System.Web;
 using System.Web.Http;
 using Microsoft.Web.Infrastructure.DynamicModuleHelper;
 using MSHRCA.API;
+using MSHRCA.BusinessLogic.DataModel;
+using MSHRCA.BusinessLogic.Repository;
+using MSHRCA.BusinessLogic.Services.Classes;
 using MSHRCA.BusinessLogic.Services.Interfaces;
 using Ninject;
 using Ninject.Extensions.Conventions;
@@ -67,14 +70,18 @@ namespace MSHRCA.API
 		/// <param name="kernel">The kernel.</param>
 		private static void RegisterServices(IKernel kernel)
 		{
+			kernel.Bind(typeof(IRepository<>)).To(typeof(BaseRepository<>)).InRequestScope();
+			kernel.Bind<MSHRCSchedulerContext>().ToSelf().InRequestScope();
 			kernel.Bind(x =>
 			{
 				x.FromAssemblyContaining<ISelfDependency>()
 					.SelectAllClasses()
 					.InheritedFrom<ISelfDependency>()
-					.BindToSelf()
+					.BindAllInterfaces()
 					.Configure(config => config.InRequestScope());
 			});
+
+
 		}
 	}
 }

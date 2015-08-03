@@ -1,8 +1,9 @@
 ﻿using MSHRCA.BusinessLogic.DataModel;
+using MSHRCA.BusinessLogic.Services.Interfaces;
 
 namespace MSHRCA.BusinessLogic.UnitOfWork
 {
-	public class UnitOfWork : IUnitOfWork
+	public class UnitOfWork : IUnitOfWork, ISelfDependency
 	{
 		private readonly MSHRCSchedulerContext _context;
 
