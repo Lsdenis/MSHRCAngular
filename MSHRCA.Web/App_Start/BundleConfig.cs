@@ -12,8 +12,11 @@ namespace MSHRCA.Web
 
 			bundles.Add(new ScriptBundle("~/Bundles/Jquery").Include("~/Scripts/jquery-{version}.js", "~/Scripts/jquery.validate.min.js"));
 			bundles.Add(new ScriptBundle("~/Bundles/Angular").Include("~/Scripts/Angular/angular.js", "~/Scripts/Angular/angular.route.js"));
-			bundles.Add(new ScriptBundle("~/Bundles/Application").IncludeDirectory("~/Scripts/Angular/Controllers", "*.js").Include("~/Scripts/Angular/application.js"));
-			bundles.Add(new ScriptBundle("~/Bundles/Scripts").Include("~/Scripts/fastclick.js", "~/Scripts/foundation.min.js"));
+			bundles.Add(new ScriptBundle("~/Bundles/Application")
+			.IncludeDirectory("~/Scripts/Angular/Controllers", "*.js")
+			.IncludeDirectory("~/Scripts/Angular/Factories", "*.js")
+			.Include("~/Scripts/Angular/application.js"));
+			bundles.Add(new ScriptBundle("~/Bundles/Scripts").Include("~/Scripts/fastclick.js", "~/Scripts/foundation.min.js", "~/Scripts/moment.min.js"));
 		}
 	}
 }

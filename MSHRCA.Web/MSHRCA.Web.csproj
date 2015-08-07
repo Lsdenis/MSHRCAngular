@@ -182,6 +182,7 @@
     <Compile Include="App_Start\NinjectWebCommon.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
+    <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\RoutesController.cs" />
     <Compile Include="Global.asax.cs">
@@ -204,7 +205,9 @@
     <Content Include="Scripts\Angular\angular.min.js" />
     <Content Include="Scripts\Angular\angular.route.js" />
     <Content Include="Scripts\Angular\application.js" />
+    <Content Include="Scripts\Angular\Controllers\AccountController.js" />
     <Content Include="Scripts\Angular\Controllers\HomePageController.js" />
+    <Content Include="Scripts\Angular\Factories\AuthHTTPResponseInterceptor.js" />
     <Content Include="Scripts\fastclick.js" />
     <Content Include="Scripts\foundation.min.js" />
     <Content Include="Scripts\jquery-2.1.4.js" />
@@ -228,6 +231,7 @@
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Scripts\jquery-2.1.4.min.map" />
+    <Content Include="Views\Account\Login.cshtml" />
     <None Include="Views\Routes\First.cshtml" />
     <None Include="Views\Routes\Second.cshtml" />
     <None Include="Views\Routes\Third.cshtml" />

@@ -14,7 +14,7 @@ namespace MSHRCA.Web.Controllers
 			return PartialView();
 		}
 
-		[Authorize]
+//		[Authorize]
 		public ActionResult Third()
 		{
 			return PartialView();
